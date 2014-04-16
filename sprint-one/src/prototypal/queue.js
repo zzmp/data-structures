@@ -14,6 +14,7 @@ var queueMethods = {
   dequeue: function() {
     var elem = this.storage[this.head];
     this.size() && delete this.storage[this.head++];
+
     return elem;
   },
   size: function() {

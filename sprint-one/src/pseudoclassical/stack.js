@@ -1,3 +1,19 @@
 var Stack = function() {
-  // Hey! Copy your code from src/prototypal/stack.js and paste it here
+  this.storage = {};
+  this.tail = 0;
+};
+
+Stack.prototype.push = function(value) {
+  this.storage[this.tail++] = value;
+};
+
+Stack.prototype.pop = function() {
+  this.tail && this.tail--;
+  var elem = this.storage[this.tail];
+  delete this.storage[this.tail];
+  return elem;
+};
+
+Stack.prototype.size = function() {
+  return this.tail;
 };
