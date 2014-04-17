@@ -4,6 +4,7 @@ var makeLinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
+    // O(1)
     var node = makeNode(value);
 
     if (list.head === null) {
@@ -14,6 +15,7 @@ var makeLinkedList = function(){
   };
 
   list.removeHead = function(){
+    // O(1)
     var node = list.head;
     if (node === null) {
       return undefined;
@@ -25,8 +27,14 @@ var makeLinkedList = function(){
     return node;
   };
 
-  list.contains = function(target, node){
+  list.contains = function(target){
+    // O(n)
+    var node = list.head;
+    while (node && node.value !== target) {
+      node = node.next;
+    }
 
+    return !!node;
   };
 
   return list;
