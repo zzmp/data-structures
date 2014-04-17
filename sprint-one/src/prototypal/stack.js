@@ -1,23 +1,23 @@
 var makeStack = function() {
   var instance = Object.create(stackMethods);
-  instance.storage = {};
-  instance.tail = 0;
+  instance._storage = {};
+  instance._tail = 0;
 
   return instance;
 };
 
 var stackMethods = {
   push: function(value) {
-    this.storage[this.tail++] = value;
+    this._storage[this._tail++] = value;
   },
   pop: function() {
-    this.tail && this.tail--;
-    var elem = this.storage[this.tail];
-    delete this.storage[this.tail];
+    this._tail && this._tail--;
+    var elem = this._storage[this._tail];
+    delete this._storage[this._tail];
 
     return elem;
   },
   size: function() {
-    return this.tail;
+    return this._tail;
   }
 };

@@ -1,8 +1,8 @@
 var makeQueue = function(){
   var instance = {
-    storage: {},
-    head: 0,
-    tail: 0
+    _storage: {},
+    _head: 0,
+    _tail: 0
   };
 
   return _.extend(instance, queueMethods);
@@ -10,15 +10,15 @@ var makeQueue = function(){
 
 var queueMethods = {
   enqueue: function(value) {
-    this.storage[this.tail++] = value;
+    this._storage[this._tail++] = value;
   },
   dequeue: function() {
-    var elem = this.storage[this.head];
-    this.size() && delete this.storage[this.head++];
+    var elem = this._storage[this._head];
+    this.size() && delete this._storage[this._head++];
 
     return elem;
   },
   size: function() {
-    return this.tail - this.head;
+    return this._tail - this._head;
   }
 };

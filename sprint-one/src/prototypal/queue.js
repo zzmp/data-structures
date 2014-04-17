@@ -1,23 +1,23 @@
 var makeQueue = function() {
   var instance = Object.create(queueMethods);
-  instance.storage = {};
-  instance.head = 0;
-  instance.tail = 0;
+  instance._storage = {};
+  instance._head = 0;
+  instance._tail = 0;
 
   return instance;
 };
 
 var queueMethods = {
   enqueue: function(value) {
-    this.storage[this.tail++] = value;
+    this._storage[this._tail++] = value;
   },
   dequeue: function() {
-    var elem = this.storage[this.head];
-    this.size() && delete this.storage[this.head++];
+    var elem = this._storage[this._head];
+    this.size() && delete this._storage[this._head++];
 
     return elem;
   },
   size: function() {
-    return this.tail - this.head;
+    return this._tail - this._head;
   }
 };

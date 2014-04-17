@@ -1,19 +1,19 @@
 var Queue = function() {
-  this.storage = {};
-  this.head = 0;
-  this.tail = 0;
+  this._storage = {};
+  this._head = 0;
+  this._tail = 0;
 };
 
 Queue.prototype.enqueue = function(value) {
-  this.storage[this.tail++] = value;
+  this._storage[this._tail++] = value;
 };
 
 Queue.prototype.dequeue = function() {
-  var elem = this.storage[this.head];
-  this.size() && delete this.storage[this.head++];
+  var elem = this._storage[this._head];
+  this.size() && delete this._storage[this._head++];
   return elem;
 };
 
 Queue.prototype.size = function() {
-  return this.tail - this.head;
+  return this._tail - this._head;
 };
