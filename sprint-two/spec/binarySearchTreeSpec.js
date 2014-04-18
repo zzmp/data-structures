@@ -68,10 +68,14 @@ describe("binarySearchTree", function() {
 
   it("should rebalance", function(){
     var array = [];
-    _.each([6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], function(value) {
-      if (value === 12) debugger;
+    _.each([6,7,8,9,10,11,12], function(value) {
       binarySearchTree.insert(value);
     });
+    var array = [];
+    binarySearchTree.depthFirstLog(function(val) {array.push(val);});
+    assert.isTrue(_.every(array, function(val, ind) {
+      return val === [8,6,5,7,10,9,11,12][ind];
+    }));
 
   });
 

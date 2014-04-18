@@ -12,7 +12,7 @@ var bstMethods = {};
 bstMethods.insert = function(value) {
   // O(n) tree may be unbalanced
   if (value === this.value) return;
-  var depth = arguments[1] ? arguments[1] : 0;
+  var depth = arguments[1] ? arguments[1] : 1;
   var root = arguments[2] || this;
   var target = undefined;
 
@@ -28,6 +28,7 @@ bstMethods.insert = function(value) {
     target.insert(value, depth+1, root);
   } else {
     root.counter++;
+    //console.log(root.counter, depth, (((Math.log(root.counter) / Math.log(2)) * 2) < depth));
     (((Math.log(root.counter) / Math.log(2)) * 2) < depth) && root.rebalance(0);
   }
 };
@@ -50,8 +51,23 @@ bstMethods.rebalance = function (depth) {
   };
 
   this.depthFirstLog(sort);
+  var root;
+  var recursor = function recursor (values) {
+    if (!values.length) return;
+    var node = values.splice( Math.floor(values.length/2), 1)[0];
+    if (root) {
+      root.insert(node);
+    } else {
+      root = makeBinarySearchTree(node)
+    }
+    recursor(values.slice(0,values.length/2));
+    recursor(values.slice(values.length/2));
+  }(sortedValues);
 
-
+  this.value = root.value;
+  this.left = root.left;
+  this.right = root.right;
+  this.counter = root.counter;
 };
 
 bstMethods.depthFirstLog = function(callback) {
