@@ -19,6 +19,10 @@ describe("tree", function() {
     assert.isTrue('parent' in tree);
   });
 
+  it("should have the method named 'traverse'", function() {
+    expect(tree.traverse).to.be.a('function');
+  });
+
   it("should add children to the tree", function() {
     tree.addChild(5);
     expect(tree.children[0].value).to.equal(5);
@@ -63,6 +67,27 @@ describe("tree", function() {
     tree.children[1].addChild(8);
     assert.isTrue(tree.contains(7));
     assert.isTrue(tree.contains(8));
+  });
+
+  it("should execute callback function once on each node", function() {
+    tree.addChild(1);
+    tree.addChild(2);
+    tree.children[0].addChild(3);
+    tree.children[0].addChild(4);
+    tree.children[0].children[0].addChild(5);
+    tree.children[1].addChild(6);
+    var attendance = [];
+    var callback = function(val) {
+      attendance.push(val);
+    };
+    tree.traverse(callback);
+    expect(attendance).to.include(undefined);
+    expect(attendance).to.include(1);
+    expect(attendance).to.include(2);
+    expect(attendance).to.include(3);
+    expect(attendance).to.include(4);
+    expect(attendance).to.include(5);
+    expect(attendance).to.include(6);
   });
 
 });

@@ -34,3 +34,14 @@ treeMethods.contains = function(target){
 
   return recurser(this.children);
 };
+
+treeMethods.traverse = function(callback) {
+  var node = this;
+  var stack = [node];
+
+  while ( stack.length ) {
+    node = stack.pop();
+    callback(node.value);
+    stack = node.children ? stack.concat(node.children) : stack;
+  }
+}
