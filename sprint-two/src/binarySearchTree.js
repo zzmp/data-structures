@@ -37,3 +37,15 @@ bstMethods.depthFirstLog = function(callback) {
   this.left && this.left.depthFirstLog(callback);
   this.right && this.right.depthFirstLog(callback);
 };
+
+bstMethods.breadthFirstLog = function(callback) {
+  var node = this;
+  var queue = [node];
+
+  while (queue.length) {
+    node = queue.shift();
+    callback(node.value);
+    node.left && queue.push(node.left);
+    node.right && queue.push(node.right);
+  }
+}
