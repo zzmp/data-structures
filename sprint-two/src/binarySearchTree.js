@@ -3,6 +3,7 @@ var makeBinarySearchTree = function(value){
   bst.value = value;
   bst.left = undefined;
   bst.right = undefined;
+  bst.counter = 0;
 
   return _.extend(bst, bstMethods);
 };
@@ -11,12 +12,24 @@ var bstMethods = {};
 
 bstMethods.insert = function(value) {
   // O(n) tree may be unbalanced
+  if (value === this.value) return;
+  var depth = arguments[1] ? arguments[1] : 0;
+  var root = arguments[2] || this;
+  var target = undefined;
+
   if (value < this.value) {
-    this.left ? this.left.insert(value) :
-                this.left = makeBinarySearchTree(value);
+    target = this.left;
+    this.left = this.left || makeBinarySearchTree(value);
   } else if (value > this.value) {
-    this.right ? this.right.insert(value) :
-                 this.right = makeBinarySearchTree(value);
+    target = this.right;
+    this.right = this.right || makeBinarySearchTree(value);
+  }
+
+  if (target) {
+    target.insert(value, depth+1, root);
+  } else {
+    root.counter++;
+    (((Math.log(root.counter) / Math.log(2)) * 2) < depth) && root.rebalance();
   }
 };
 
@@ -48,4 +61,4 @@ bstMethods.breadthFirstLog = function(callback) {
     node.left && queue.push(node.left);
     node.right && queue.push(node.right);
   }
-}
+};
