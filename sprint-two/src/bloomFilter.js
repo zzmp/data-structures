@@ -17,7 +17,6 @@ BitArray.prototype.get = function (pos) {
 var BloomFilter = function (m, k) {
   this._m = m;
   this._k = k;
-
   this._filter = new BitArray(this._m);
 
   this._hashers = [];
@@ -28,15 +27,17 @@ var BloomFilter = function (m, k) {
 };
 
 BloomFilter.prototype.set = function(key) {
+  var filter = this._filter;
   _.each(this._hashers, function(hasher) {
-    this._filter.set(hasher(key));
+    filter.set(hasher(key));
   });
 };
 
 BloomFilter.prototype.has = function(key) {
+  var filter = this._filter;
   return _.chain(this._hashers)
     .map(function (hasher) {
-      return this._filter.get(hasher(key));
+      return filter.get(hasher(key));
     })
     .every()
     .value();
