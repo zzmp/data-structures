@@ -41,16 +41,17 @@ describe("hashTable", function() {
     hashTable.insert(v3, v3);
     hashTable.insert(v4, v4);
     hashTable.insert(v5, v5);
-    // hashTable.insert(v6, v6);
-    // hashTable.insert(v7, v7);
-    // hashTable.insert(v8, v8);
-    // // hashTable.insert(v9, v9);
-    // expect(hashTable.retrieve(v9)).to.equal(v9);
-    // expect(hashTable.retrieve(v10)).to.equal(v2);
+    hashTable.insert(v6, v6);
+    hashTable.insert(v7, v7);
+    hashTable.insert(v8, v8);
+    hashTable.insert(v9, v9);
+    hashTable.insert(v10, v10);
+    expect(hashTable.retrieve(v9)).to.equal(v9);
+    expect(hashTable.retrieve(v10)).to.equal(v10);
   });
 
   // (Extra credit! Remove the extra 'x' when you want the following tests to run)
-  xit("should double in size when needed", function() {
+  it("should double in size when needed", function() {
     for (var i = 0; i < people.length; i++){
       var firstName = people[i][0], lastName = people[i][1];
       hashTable.insert(firstName,lastName);
@@ -58,7 +59,7 @@ describe("hashTable", function() {
     expect(hashTable._limit).to.equal(16);
   });
 
-  xit("should halve in size when needed", function() {
+  it("should halve in size when needed", function() {
     for (var i = 0; i < people.length; i++){
       var firstName = people[i][0], lastName = people[i][1];
       hashTable.insert(firstName,lastName);
