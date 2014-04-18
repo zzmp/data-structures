@@ -3,8 +3,7 @@ var makeBinarySearchTree = function(value){
   bst.value = value;
   bst.left = undefined;
   bst.right = undefined;
-  bst.counter = 0;
-
+  bst.counter = 1;
   return _.extend(bst, bstMethods);
 };
 
@@ -29,7 +28,7 @@ bstMethods.insert = function(value) {
     target.insert(value, depth+1, root);
   } else {
     root.counter++;
-    (((Math.log(root.counter) / Math.log(2)) * 2) < depth) && root.rebalance();
+    (((Math.log(root.counter) / Math.log(2)) * 2) < depth) && root.rebalance(0);
   }
 };
 
@@ -42,6 +41,17 @@ bstMethods.contains = function(value) {
   } else {
     return true;
   }
+};
+
+bstMethods.rebalance = function (depth) {
+  var sortedValues = [];
+  var sort = function(val) {
+    sortedValues.push(val);
+  };
+
+  this.depthFirstLog(sort);
+
+
 };
 
 bstMethods.depthFirstLog = function(callback) {

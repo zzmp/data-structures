@@ -69,6 +69,7 @@ describe("binarySearchTree", function() {
   it("should rebalance", function(){
     var array = [];
     _.each([6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21], function(value) {
+      if (value === 12) debugger;
       binarySearchTree.insert(value);
     });
 
