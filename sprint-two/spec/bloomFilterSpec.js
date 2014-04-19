@@ -21,4 +21,20 @@ describe("bloomFilter", function() {
     assert.isFalse(bloomFilter.has('' + 2222));
   });
 
+  it("should approximate ((1-e^(-kn/m))^k)", function() {
+    var positives = 0;
+    for ( var i = 0;  i < 10000; i++ ) {
+      bloomFilter.has('' + i) && positives++;
+    }
+
+    console.log({
+      theory: 0.1152,
+      positives: positives,
+      truePos: 4,
+      practice: (positives-4)/9996
+    });
+
+    assert.isTrue(true);
+  })
+
 });

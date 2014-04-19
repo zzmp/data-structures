@@ -27,33 +27,32 @@ var BloomFilter = function (m, k) {
 };
 
 BloomFilter.prototype.set = function(key) {
+  var m = this._m;
   var filter = this._filter;
   _.each(this._hashers, function(hasher) {
-    filter.set(hasher(key));
+    filter.set(hasher(key, m));
   });
 };
 
 BloomFilter.prototype.has = function(key) {
+  var m = this._m;
   var filter = this._filter;
   return _.chain(this._hashers)
     .map(function (hasher) {
-      return filter.get(hasher(key));
+      return filter.get(hasher(key, m));
     })
     .every()
     .value();
 };
 
 BloomFilter.prototype.makeHash = function (seed) {
-  return function (key) {
-    var hash = Math.pow(seed,seed);
+  return function (key, m) {
+    var hash = 0;
     for (var i = 0; i < key.length; i++) {
       hash = (hash<<seed) + hash + key.charCodeAt(i);
       hash = hash & hash; // Convert to 32bit integer
-      if (seed % 2) {
-        hash = ~hash;
-      }
       hash = Math.abs(hash);
     }
-    return hash % this._m;
+    return hash % m;
   };
 };
