@@ -27,12 +27,12 @@ describe("bloomFilter", function() {
       bloomFilter.has('' + i) && positives++;
     }
 
-    console.log({
-      theory: 0.1152,
-      positives: positives,
-      truePos: 4,
-      practice: (positives-4)/9996
-    });
+    // console.log({
+    //   theory: 0.1152,
+    //   positives: positives,
+    //   truePos: 4,
+    //   practice: (positives-4)/9996
+    // });
 
     assert.isTrue(true);
   })
