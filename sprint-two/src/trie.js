@@ -8,12 +8,11 @@ var Trie = function(dict) {
 
   Node.prototype.insert = function (word, preferred) {
     var char = word.substr(0, 1);
-    word = word.substr(1);
 
     if (word.length) {
       this._children[char] =
         this._children[char] || new Node();
-      this._children[char].insert(word);
+      this._children[char].insert(word.substr(1), preferred);
 
       if (preferred) {
         this._children[word] =
@@ -24,7 +23,7 @@ var Trie = function(dict) {
       this._terminal = true;
     }
 
-    if (preferred) {
+    if (preferred && char.length) {
       this._children[word]._preference++;
     }
   };
@@ -35,13 +34,13 @@ var Trie = function(dict) {
     }
 
     var pref;
-    var char =
-      _.reduce(this._children, function(memo, node, char) {
-        if (!pref || node._preference > pref) {
-          pref = node._preference;
-          return char;
-        }
-      });
+    var char;
+    _.each(this._children, function(node, branch) {
+      if (!pref || node._preference > pref) {
+        pref = node._preference;
+        char = branch;
+      }
+    });
 
     return this._children[char].suggest(word + char);
   };
