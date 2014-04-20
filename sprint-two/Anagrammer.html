@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Anagrammer</title>
+    <script src="../lib/jquery/jquery.js"></script>
+    <script src="../lib/underscore/underscore.js"></script>
+
+    <!-- source files -->
+    <script type="text/javascript" src="../lib/scrabble.js"></script>
+    <script type="text/javascript" src="src/anagrammer.js"></script>
+
+  </head>
+  <body>
+    <div id="anagrammer">
+      <input class="input" type="text" />
+      <div class="output">
+          "Yolo," said Phillip!
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var anagrammer = new Anagrammer(scrabble);
+
+      $('.input').on('change', function() {
+        $('.output').text(anagrammer.search($('.input').val().toUpperCase()));
+      });
+    });
+  </script>
+</html>
